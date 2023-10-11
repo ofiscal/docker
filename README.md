@@ -1,7 +1,11 @@
 # What this is
 
-This Docker image can be used to run any code written by the Observatorio.
+The Docker image coded here can be used to run any code written by the Observatorio.
 It is not necessary, but should always be sufficient.
+
+The image can be built using this code,
+or a prebuilt image can be downloaded from
+`https://hub.docker.com/repository/docker/ofiscal/tax.co/general`.
 
 See `commands.txt` in this folder for, among other things,
 how to start and use it.
