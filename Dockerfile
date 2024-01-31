@@ -20,30 +20,11 @@ RUN apt install -y \
 RUN apt install -y \
       libapache2-mod-wsgi-py3 ufw apache2
 RUN apt install -y \
-      haskell-platform
+      ghc ghc-doc cabal
 RUN apt install -y \
       python3-pip
 RUN apt install -y \
       zip unzip
-
-RUN pip3 install --upgrade \
-  yfinance yahoofinancials
-RUN pip3 install --upgrade \
-  weightedcalcs csv-diff
-RUN pip3 install --upgrade \
-  icecream
-RUN pip3 install --upgrade \
-  pydotplus
-RUN pip3 install --upgrade \
-  graphviz
-RUN pip3 install --upgrade \
-  django-stubs
-
-RUN pip3 install --upgrade ipython
-
-RUN pip3 install --upgrade scipy
-
-RUN pip3 install --upgrade django
 
 ADD makefile2graph.zip make.py.zip /home/
 
@@ -63,16 +44,12 @@ RUN cd /home && unzip make.py && rm make.py.zip && \
 # If it doesn't work, try installing it that way instead.
 RUN apt install xlsx2csv csvtool
 
-RUN pip3 install --upgrade coconut mypy coconut[mypy] \
-    pandas-stubs types-requests
-RUN pip3 install --upgrade pandas
-RUN pip3 install --upgrade matplotlib
-RUN pip3 install --upgrade openpyxl
-RUN pip3 install --upgrade filelock
-RUN pip3 install --upgrade pytest
 RUN echo "coconut \$1 \$1.py -l -t 3.7 --mypy" > /usr/bin/myCoconut && \
     chmod +x                                     /usr/bin/myCoconut
-RUN pip3 install --upgrade xlrd
+
+COPY requirements.txt /root/
+RUN pip3 install -r /root/requirements.txt \
+  --break-system-packages # safe since it's in a Docker container
 
 
 #### #### #### #### #### #### #### #### #### #### #### ####
